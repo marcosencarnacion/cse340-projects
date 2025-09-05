@@ -23,6 +23,10 @@ app.set("layout", "./layouts/layout") // not at views root
  * Routes
  *************************/
 app.use(static)
+// Index route
+app.get("/", function(requ, res) {
+  res.render("index", {title: "Home"})
+})
 
 /* ***********************
  * Local Server Information
