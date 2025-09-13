@@ -19,7 +19,7 @@ WHERE account_email = 'tony@starkent.com';
 
 -- Third Query: Delete 'Tony Stark' record from Database using Primary Key 
 DELETE FROM account
-WHERE account_id = 2;
+WHERE account_id = 1;
 
 -- Fourth Query: Modify the "GM Hummer" record to read "a huge interior" rather than "small interiors" using a single query. 
 UPDATE inventory
