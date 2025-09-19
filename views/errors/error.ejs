@@ -1,0 +1,12 @@
+<%# The 'title' variable is passed from the error handler in server.js %>
+<% if (title) { %>
+<h1><%= title %></h1>
+<% } else {
+  res.redirect('/')
+} %>
+
+<p>Whoops! It looks like our server hit a pothole. ⚙️</p>
+<hr>
+
+<%# The 'message' variable is also passed from the error handler %>
+<p><%- message %></p>
