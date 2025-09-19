@@ -13,7 +13,7 @@ const static = require("./routes/static")
 const baseController = require("./controllers/baseController")
 
 // Added inventory route require statement
-const inventoryRoute = require("./routes/inventory")
+const inventoryRoute = require("./routes/inventoryRoute")
 
 /* ***********************
  * View Engine and Templates
