@@ -1,3 +1,11 @@
+/* Make body fill viewport */
+html, body {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+
 /******* Change Box Model ***************/
 *,
 *:before,
@@ -15,8 +23,7 @@ h1, h2, h3 {
 }
 
 main {
-  min-height: calc(100vh - 300px); 
-  padding-bottom: 40px;
+  flex: 1;
 }
 
 body {
@@ -38,6 +45,11 @@ body {
   width: 95%;
   box-sizing: border-box;
   overflow-x: hidden;
+
+  /* --- Add these styles --- */
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
 }
 
 ul {
@@ -217,7 +229,7 @@ h1 {
 
 /* Footer Style */
 footer {
-  margin-top: 60px;
+  margin-top: auto;
   padding: 20px 0;
   text-align: center;
   background-color: #f9f9f9;
@@ -251,7 +263,7 @@ nav ul {
   display: flex;         
   justify-content: center; 
   align-items: center;
-  gap: 150px;
+  gap: 130px;
   height: auto;
   padding: 10px 0;
 }
@@ -336,7 +348,7 @@ nav ul {
   display: none;
   flex-direction: column;
   gap: 10px;
-  padding: 15px 0;
+  padding: 12px 0;
   background: rgba(0, 0, 0, 0.7);
   backdrop-filter: blur(6px);
   position: absolute;
@@ -381,4 +393,51 @@ nav ul {
   footer {
     font-size: 0.9rem;
   }
+}
+
+/* =========================
+ * Inventory Display Grid
+ * ========================= */
+#inv-display {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 25px;
+  padding: 0;
+  margin-top: 20px;
+}
+
+
+#inv-display li {
+  list-style-type: none;
+  text-align: center;
+  border: 2px solid #ccc;
+  border-radius: 8px;
+  padding: 10px;
+  background-color: #f9f9f9;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+  flex-basis: calc(50% - 15px);
+  min-width: 300px;
+}
+
+#inv-display a {
+  text-decoration: none;
+  color: #333;
+}
+
+#inv-display img {
+  max-width: 100%;
+  height: auto;
+  border-radius: 5px;
+}
+
+#inv-display .namePrice h2 {
+  font-size: 1.2rem;
+  margin: 5px 0;
+}
+
+#inv-display .namePrice span {
+  font-size: 1.1rem;
+  font-weight: bold;
+  color: #007BFF;
 }

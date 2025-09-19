@@ -1,9 +1,22 @@
+
+<%# ========================= %>
+<%# Section 1: Page Heading   %>
+<%# Displays the page title if one is passed in. If no title, redirects home. %>
+<%# ========================= %>
 <% if (title) { %>
 <h1><%= title %></h1>
 <% } else {
   res.redirect('/')
 } %>
 
+<%# ========================= %>
+<%# Section 2: Messages       %>
+<%# Calls the messages() helper to show flash messages, errors, or alerts. %>
+<%# ========================= %>
 <%# messages() %>
 
+<%# ========================= %>
+<%# Section 3: Inventory Grid %>
+<%# Renders the inventory items passed in from the controller. %>
+<%# ========================= %>
 <%- grid %>
