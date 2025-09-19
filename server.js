@@ -12,6 +12,8 @@ const app = express()
 const static = require("./routes/static")
 const baseController = require("./controllers/baseController")
 
+// Added inventory route require statement
+const inventoryRoute = require("./routes/inventory")
 
 /* ***********************
  * View Engine and Templates
@@ -26,6 +28,8 @@ app.set("layout", "./layouts/layout") // not at views root
 app.use(static)
 // Index route
 app.get("/", baseController.buildHome)
+// Inventory routes - Added
+app.use("/inv", inventoryRoute)
 
 
 /* ***********************
