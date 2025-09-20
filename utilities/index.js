@@ -62,6 +62,7 @@ Util.buildClassificationGrid = async function(data){
 * Build the vehicle detail view HTML
 * ************************************ */
 Util.buildVehicleDetailGrid = async function(data){
+  
   let grid = '<div class="detail-container">'
   let price = new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD' }).format(data.inv_price)
   let miles = new Intl.NumberFormat('en-US').format(data.inv_miles)
