@@ -1,12 +1,11 @@
 const invModel = require("../models/inventory-model")
-const utilities = require("../utilities/")
-
-const invCont = {}
+const utilities = require("../utilities/")  
+const invController = {}
 
 /* ***************************
  *  Build inventory by classification view
  * ************************** */
-invCont.buildByClassificationId = async function (req, res, next) {
+invController.buildByClassificationId = async function (req, res, next) {
   const classification_id = req.params.classificationId
   const data = await invModel.getInventoryByClassificationId(classification_id)
   const grid = await utilities.buildClassificationGrid(data)
@@ -19,4 +18,21 @@ invCont.buildByClassificationId = async function (req, res, next) {
   })
 }
 
- module.exports = invCont
+/* ***************************
+ * Build view by inventory id
+ * ************************** */
+invController.buildByInventoryId = async function (req, res, next) {
+  const inv_id = req.params.invId
+  const data = await invModel.getVehicleByInventoryId(inv_id)
+  const grid = await utilities.buildVehicleDetailGrid(data)
+  let nav = await utilities.getNav()
+  const vehicleTitle = `${data.inv_year} ${data.inv_make} ${data.inv_model}`
+  res.render("./inventory/detail", {
+    title: vehicleTitle,
+    nav,
+    grid,
+  })
+}
+
+
+module.exports = invController
