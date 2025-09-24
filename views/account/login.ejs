@@ -1,13 +1,7 @@
   <h1><%= title %></h1>
 
-  <!-- Flash messages -->
-  <% if (messages().length > 0) { %>
-    <ul class="messages">
-      <% messages().forEach(function(message) { %>
-        <li><%= message %></li>
-      <% }) %>
-    </ul>
-  <% } %>
+<!-- Flash messages -->
+<%- messages() %>
 
   <!-- Login Form -->
   <form action="/account/login" method="post" class="login-form">
