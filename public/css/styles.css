@@ -480,3 +480,34 @@ nav ul {
     flex-direction: column;
   }
 }
+
+/* General flash message styles */
+ul.notice {
+  list-style-type: none; /* remove bullets */
+  padding: 10px 15px;
+  margin: 15px 0;
+  border-radius: 6px;
+  font-size: 1rem;
+  font-weight: 500;
+}
+
+/* Notice (informational) style */
+ul.notice {
+  background-color: #e6f4ff;   /* light blue background */
+  color: #084298;              /* dark blue text */
+  border: 1px solid #b6e0fe;   /* soft border */
+}
+
+/* Error messages */
+ul.error {
+  background-color: #fdecea;   /* light red background */
+  color: #611a15;              /* dark red text */
+  border: 1px solid #f5c2c0;
+}
+
+/* Success messages */
+ul.success {
+  background-color: #e6ffed;   /* light green background */
+  color: #0f5132;              /* dark green text */
+  border: 1px solid #badbcc;
+}
