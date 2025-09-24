@@ -14,6 +14,8 @@ const baseController = require("./controllers/baseController")
 const utilities = require("./utilities")
 const session = require("express-session")
 const pool = require('./database/')
+const accountRoute = require("./routes/accountRoute")
+
 
 
 // Added inventory route require statement
@@ -61,6 +63,9 @@ app.get("/error", utilities.handleErrors(baseController.buildError))
 
 // Inventory routes - Added
 app.use("/inv", inventoryRoute)
+
+// Account routes - Added
+app.use("/account", accountRoute)
 
 // File Not Found Route - must be last route in list
 app.use(async (req, res, next) => {
