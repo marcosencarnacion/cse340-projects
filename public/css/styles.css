@@ -592,3 +592,75 @@ main p a {
 main p a:hover {
   text-decoration: underline;
 }
+
+/* Registration form */
+.registration-form {
+  max-width: 480px;
+  margin: 2rem auto;
+  padding: 1.75rem;
+  background: #fff;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.06);
+  display: grid;
+  gap: 0.9rem;
+  font-family: inherit;
+}
+
+.form-row {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+}
+
+.form-row label {
+  font-weight: 600;
+  font-size: 0.95rem;
+}
+
+.form-row input {
+  padding: 0.6rem 0.75rem;
+  border: 1px solid #d0d7de;
+  border-radius: 6px;
+  font-size: 1rem;
+}
+
+.form-row input:focus {
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(0,119,204,0.08);
+  border-color: #0077cc;
+}
+
+.password-row {
+  position: relative;
+}
+
+.toggle-btn {
+  position: absolute;
+  right: 10px;
+  top: 36px; /* tweak if needed */
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  font-weight: 600;
+  color: #0077cc;
+}
+
+.btn {
+  background: #0077cc;
+  color: #fff;
+  border: none;
+  padding: 0.75rem 1rem;
+  border-radius: 6px;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.btn:hover { background: #005fa3 }
+
+.muted { text-align: center; color: #555; margin-top: 1rem; font-size: 0.95rem; }
+
+/* Flash messages rendered by express-messages (if not styled already) */
+ul.notice, ul.success, ul.error {
+  max-width: 480px;
+  margin: 1rem auto;
+}

@@ -65,7 +65,7 @@ app.get("/error", utilities.handleErrors(baseController.buildError))
 app.use("/inv", inventoryRoute)
 
 // Account routes - Added
-app.use("/account", accountRoute)
+app.use("/account", require("./routes/accountRoute"))
 
 // File Not Found Route - must be last route in list
 app.use(async (req, res, next) => {
