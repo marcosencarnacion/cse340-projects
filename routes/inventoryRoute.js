@@ -10,4 +10,9 @@ router.get("/type/:classificationId", utilities.handleErrors(invController.build
 // Route to handle a request for a single vehicle.
 router.get("/detail/:invId", utilities.handleErrors(invController.buildByInventoryId))
 
+router.get(
+  "/", // site-name/inv/
+  utilities.handleErrors(invController.buildManagement) // NEW: Management view route
+)
+
 module.exports = router;

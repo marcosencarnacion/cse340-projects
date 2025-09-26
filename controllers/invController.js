@@ -34,5 +34,30 @@ invController.buildByInventoryId = async function (req, res, next) {
   })
 }
 
+/* ***************************
+ * Build inventory management view
+ * ************************** */
+invController.buildManagement = async function (req, res, next) {
+  let nav = await utilities.getNav()
+  res.render("./inventory/management", {
+    title: "Inventory Management",
+    nav,
+    errors: null,
+    message: req.flash("notice"), // <-- show flash messages
+  })
+}
+
+/* ***************************
+ * Build inventory management view
+ * ************************** */
+invController.buildManagement = async function (req, res, next) {
+  let nav = await utilities.getNav()
+  res.render("./inventory/management", {
+    title: "Inventory Management",
+    nav,
+    errors: null,
+    message: req.flash("notice"), // <-- show flash messages
+  })
+}
 
 module.exports = invController
