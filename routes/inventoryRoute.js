@@ -15,4 +15,13 @@ router.get(
   utilities.handleErrors(invController.buildManagement) // NEW: Management view route
 )
 
+// Route to build inventory management view
+router.get("/", utilities.handleErrors(invController.buildManagement)) // NEW
+
+// Route to build add classification view
+router.get("/add-classification", utilities.handleErrors(invController.buildAddClassification)) // NEW
+
+// Route to handle add classification form submission
+router.post("/add-classification", utilities.handleErrors(invController.addClassification)) // NEW
+
 module.exports = router;

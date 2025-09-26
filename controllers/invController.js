@@ -60,4 +60,47 @@ invController.buildManagement = async function (req, res, next) {
   })
 }
 
+/* ****************************************
+*  Deliver Add Classification View
+* *************************************** */
+invController.buildAddClassification = async function (req, res, next) {
+  let nav = await utilities.getNav()
+  res.render("inventory/add-classification", {
+    title: "Add Classification",
+    nav,
+    errors: null,
+  })
+}
+
+/* ****************************************
+*  Process Add Classification
+* *************************************** */
+invController.addClassification = async function (req, res, next) {
+  const { classification_name } = req.body
+  let nav = await utilities.getNav()
+
+  try {
+    const data = await invModel.addClassification(classification_name)
+    if (data) {
+      req.flash("notice", `The ${classification_name} classification was successfully added.`)
+      res.redirect("/inv/") // back to management view
+    } else {
+      req.flash("notice", "Sorry, the insert failed.")
+      res.status(500).render("inventory/add-classification", {
+        title: "Add Classification",
+        nav,
+        errors: null,
+      })
+    }
+  } catch (error) {
+    console.error("addClassification controller error:", error)
+    req.flash("notice", "There was an error processing the request.")
+    res.status(500).render("inventory/add-classification", {
+      title: "Add Classification",
+      nav,
+      errors: null,
+    })
+  }
+}
+
 module.exports = invController
