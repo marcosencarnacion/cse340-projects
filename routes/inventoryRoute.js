@@ -12,16 +12,22 @@ router.get("/detail/:invId", utilities.handleErrors(invController.buildByInvento
 
 router.get(
   "/", // site-name/inv/
-  utilities.handleErrors(invController.buildManagement) // NEW: Management view route
+  utilities.handleErrors(invController.buildManagement)
 )
 
 // Route to build inventory management view
-router.get("/", utilities.handleErrors(invController.buildManagement)) // NEW
+router.get("/", utilities.handleErrors(invController.buildManagement)) 
 
 // Route to build add classification view
-router.get("/add-classification", utilities.handleErrors(invController.buildAddClassification)) // NEW
+router.get("/add-classification", utilities.handleErrors(invController.buildAddClassification))
 
 // Route to handle add classification form submission
-router.post("/add-classification", utilities.handleErrors(invController.addClassification)) // NEW
+router.post("/add-classification", utilities.handleErrors(invController.addClassification)) 
+
+// Route to build add inventory view
+router.get("/add-inventory", utilities.handleErrors(invController.buildAddInventory)) 
+
+// Route to handle add inventory form submission
+router.post("/add-inventory", utilities.handleErrors(invController.addInventory))
 
 module.exports = router;

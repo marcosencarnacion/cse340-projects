@@ -103,4 +103,50 @@ invController.addClassification = async function (req, res, next) {
   }
 }
 
+/* ****************************************
+*  Deliver Add Inventory View
+* *************************************** */
+invController.buildAddInventory = async function (req, res, next) {
+  let nav = await utilities.getNav()
+  let classifications = await invModel.getClassifications()
+  res.render("inventory/add-inventory", {
+    title: "Add Vehicle",
+    nav,
+    classifications: classifications.rows,
+    errors: null,
+  })
+}
+
+/* ****************************************
+*  Process Add Inventory
+* *************************************** */
+invController.addInventory = async function (req, res, next) {
+  const vehicleData = req.body
+  let nav = await utilities.getNav()
+  try {
+    const data = await invModel.addInventory(vehicleData)
+    if (data) {
+      req.flash("notice", `The ${vehicleData.inv_year} ${vehicleData.inv_make} ${vehicleData.inv_model} was successfully added.`)
+      res.redirect("/inv/") // management view
+    } else {
+      req.flash("notice", "Sorry, the insert failed.")
+      res.status(500).render("inventory/add-inventory", {
+        title: "Add Vehicle",
+        nav,
+        classifications: (await invModel.getClassifications()).rows,
+        errors: null,
+      })
+    }
+  } catch (error) {
+    console.error("addInventory controller error:", error)
+    req.flash("notice", "There was an error processing the request.")
+    res.status(500).render("inventory/add-inventory", {
+      title: "Add Vehicle",
+      nav,
+      classifications: (await invModel.getClassifications()).rows,
+      errors: null,
+    })
+  }
+}
+
 module.exports = invController
