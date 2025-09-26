@@ -653,6 +653,8 @@ main p a:hover {
   border-radius: 6px;
   font-weight: 700;
   cursor: pointer;
+  text-decoration: none;
+  text-align: center;
 }
 
 .btn:hover { background: #005fa3 }

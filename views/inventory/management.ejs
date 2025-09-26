@@ -1,17 +1,16 @@
-<main>
-  <h1>Inventory Management</h1>
 
-  <!-- Flash message -->
-  <% if (locals.message && locals.message.length > 0) { %>
-    <div class="notice"><%= message %></div>
-  <% } %>
+<h1>Inventory Management</h1>
 
-  <p>Use the links below to manage inventory classifications and vehicles.</p>
+<!-- Flash message -->
+<% if (locals.message && locals.message.length > 0) { %>
+<div class="notice"><%= message %></div>
+<% } %>
 
-  <div class="form-row">
-    <a class="btn" href="/inv/add-classification">Add New Classification</a>
-  </div>
-  <div class="form-row">
-    <a class="btn" href="/inv/add-inventory">Add New Vehicle</a>
-  </div>
-</main>
+<p>Use the links below to manage inventory classifications and vehicles.</p>
+
+<div class="form-row">
+<a class="btn" href="/inv/add-classification">Add New Classification</a>
+</div>
+<div class="form-row">
+<a class="btn" href="/inv/add-inventory">Add New Vehicle</a>
+</div>

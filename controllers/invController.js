@@ -43,20 +43,7 @@ invController.buildManagement = async function (req, res, next) {
     title: "Inventory Management",
     nav,
     errors: null,
-    message: req.flash("notice"), // <-- show flash messages
-  })
-}
-
-/* ***************************
- * Build inventory management view
- * ************************** */
-invController.buildManagement = async function (req, res, next) {
-  let nav = await utilities.getNav()
-  res.render("./inventory/management", {
-    title: "Inventory Management",
-    nav,
-    errors: null,
-    message: req.flash("notice"), // <-- show flash messages
+    message: req.flash("notice"),
   })
 }
 
@@ -69,6 +56,7 @@ invController.buildAddClassification = async function (req, res, next) {
     title: "Add Classification",
     nav,
     errors: null,
+    classification_name: "", // default empty for sticky forms
   })
 }
 
@@ -83,13 +71,14 @@ invController.addClassification = async function (req, res, next) {
     const data = await invModel.addClassification(classification_name)
     if (data) {
       req.flash("notice", `The ${classification_name} classification was successfully added.`)
-      res.redirect("/inv/") // back to management view
+      res.redirect("/inv/")
     } else {
       req.flash("notice", "Sorry, the insert failed.")
       res.status(500).render("inventory/add-classification", {
         title: "Add Classification",
         nav,
         errors: null,
+        classification_name, // sticky
       })
     }
   } catch (error) {
@@ -99,6 +88,7 @@ invController.addClassification = async function (req, res, next) {
       title: "Add Classification",
       nav,
       errors: null,
+      classification_name, // sticky
     })
   }
 }
@@ -114,6 +104,7 @@ invController.buildAddInventory = async function (req, res, next) {
     nav,
     classifications: classifications.rows,
     errors: null,
+    vehicleData: {}, // default empty
   })
 }
 
@@ -127,7 +118,7 @@ invController.addInventory = async function (req, res, next) {
     const data = await invModel.addInventory(vehicleData)
     if (data) {
       req.flash("notice", `The ${vehicleData.inv_year} ${vehicleData.inv_make} ${vehicleData.inv_model} was successfully added.`)
-      res.redirect("/inv/") // management view
+      res.redirect("/inv/")
     } else {
       req.flash("notice", "Sorry, the insert failed.")
       res.status(500).render("inventory/add-inventory", {
@@ -135,6 +126,7 @@ invController.addInventory = async function (req, res, next) {
         nav,
         classifications: (await invModel.getClassifications()).rows,
         errors: null,
+        vehicleData, // sticky
       })
     }
   } catch (error) {
@@ -145,6 +137,7 @@ invController.addInventory = async function (req, res, next) {
       nav,
       classifications: (await invModel.getClassifications()).rows,
       errors: null,
+      vehicleData, // sticky
     })
   }
 }
