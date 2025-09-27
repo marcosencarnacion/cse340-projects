@@ -1,4 +1,3 @@
-
 <h1>Add New Classification</h1>
 
 <!-- Flash message -->
@@ -6,18 +5,29 @@
 <div class="notice"><%= message %></div>
 <% } %>
 
+<!-- Validation Errors -->
+<% if (errors && errors.length > 0) { %>
+  <div class="error-list">
+    <ul>
+      <% errors.forEach(error => { %>
+        <li><%= error.msg %></li>
+      <% }) %>
+    </ul>
+  </div>
+<% } %>
+
 <form method="post" action="/inv/add-classification" class="registration-form">
-<div class="form-row">
+  <div class="form-row">
     <label for="classification_name">Classification Name</label>
     <input 
-    type="text" 
-    id="classification_name" 
-    name="classification_name" 
-    value="<%= classification_name || '' %>"
-    required 
-    placeholder="Enter classification name"
+      type="text" 
+      id="classification_name" 
+      name="classification_name" 
+      value="<%= classification_name || '' %>"
+      required 
+      placeholder="Enter classification name"
     >
-</div>
+  </div>
 
-<button type="submit" class="btn">Add Classification</button>
+  <button type="submit" class="btn">Add Classification</button>
 </form>
