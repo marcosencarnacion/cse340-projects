@@ -16,6 +16,7 @@ const session = require("express-session")
 const pool = require('./database/')
 const accountRoute = require("./routes/accountRoute")
 const bodyParser = require("body-parser")
+const cookieParser = require("cookie-parser")
 
 
 
@@ -75,6 +76,12 @@ app.use("/account", require("./routes/accountRoute"))
 app.use(async (req, res, next) => {
   next({status: 404, message: 'Sorry, we appear to have lost that page.'})
 })
+
+// Cookie Parser
+app.use(cookieParser())
+
+// Check for valid JWT token on all routes
+app.use(utilities.checkJWTToken)
 
 
 /* ***********************
