@@ -1,4 +1,3 @@
-
 <h1>Inventory Management</h1>
 
 <!-- Flash message -->
@@ -9,8 +8,24 @@
 <p>Use the links below to manage inventory classifications and vehicles.</p>
 
 <div class="form-row">
-<a class="btn" href="/inv/add-classification">Add New Classification</a>
+  <a class="btn" href="/inv/add-classification">Add New Classification</a>
 </div>
 <div class="form-row">
-<a class="btn" href="/inv/add-inventory">Add New Vehicle</a>
+  <a class="btn" href="/inv/add-inventory">Add New Vehicle</a>
 </div>
+
+<!-- New section for managing existing inventory -->
+<h2>Manage Inventory</h2>
+<p>Select a classification from the list to see the items belonging to the classification.</p>
+
+<!-- Classification select list -->
+<%- classificationSelect %>
+
+<!-- Empty table for inventory display -->
+<table id="inventoryDisplay"></table>
+
+<!-- No JavaScript message -->
+<noscript>JavaScript must be enabled to use this page.</noscript>
+
+<!-- Link to JavaScript file -->
+<script src="/js/inventory.js"></script>

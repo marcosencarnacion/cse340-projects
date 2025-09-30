@@ -777,3 +777,88 @@ input:valid {
   border-left: 4px solid #007bff;
 }
 
+/* Inventory Management Table Styles */
+#inventoryDisplay {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 1rem;
+}
+
+#inventoryDisplay th {
+  background-color: #f2f2f2;
+  padding: 0.5rem;
+  text-align: left;
+  border: 1px solid #ddd;
+}
+
+#inventoryDisplay td {
+  padding: 0.5rem;
+  border: 1px solid #ddd;
+}
+
+#inventoryDisplay tr:nth-child(even) {
+  background-color: #f9f9f9;
+}
+
+/* Classification Select Dropdown Styles */
+#classificationList {
+  width: 100%;
+  max-width: 400px;
+  padding: 12px 16px;
+  font-size: 16px;
+  font-family: inherit;
+  border: 2px solid #ddd;
+  border-radius: 8px;
+  background-color: white;
+  background-image: url("data:image/svg+xml;charset=US-ASCII,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 4 5'><path fill='%23333' d='M2 0L0 2h4zm0 5L0 3h4z'/></svg>");
+  background-repeat: no-repeat;
+  background-position: right 16px center;
+  background-size: 12px;
+  appearance: none;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  margin: 1rem 0;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+#classificationList:hover {
+  border-color: #999;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+}
+
+#classificationList:focus {
+  outline: none;
+  border-color: #007bff;
+  box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.25);
+}
+
+#classificationList option {
+  padding: 12px;
+  font-size: 16px;
+  background-color: white;
+}
+
+#classificationList option:first-child {
+  color: #6c757d;
+  font-style: italic;
+}
+
+#classificationList option:not(:first-child) {
+  color: #333;
+  border-bottom: 1px solid #f0f0f0;
+}
+
+/* Label styling for better semantics */
+.form-row {
+  margin-bottom: 1.5rem;
+}
+
+.form-row label {
+  display: block;
+  margin-bottom: 0.5rem;
+  font-weight: 600;
+  color: #333;
+  font-size: 14px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
