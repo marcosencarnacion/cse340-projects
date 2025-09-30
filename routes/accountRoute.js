@@ -1,9 +1,8 @@
-// Needed Resources
 const express = require("express")
 const router = new express.Router()
 const utilities = require("../utilities/")
 const accountController = require("../controllers/accountController")
-const regValidate = require('../utilities/account-validation')
+const regValidate = require("../utilities/account-validation")
 
 // Route to build the login view
 router.get("/login", utilities.handleErrors(accountController.buildLogin))
@@ -12,10 +11,7 @@ router.get("/login", utilities.handleErrors(accountController.buildLogin))
 router.get("/register", utilities.handleErrors(accountController.buildRegister))
 
 // Default account management view
-router.get(
-  "/",
-  utilities.handleErrors(accountController.buildAccountManagement)
-)
+router.get("/", utilities.handleErrors(accountController.buildAccountManagement))
 
 // Process the registration data
 router.post(

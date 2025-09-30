@@ -1,0 +1,12 @@
+<main>
+  <% if (messages && messages.length > 0) { %>
+    <div class="flash">
+      <% messages.forEach(msg => { %>
+        <p><%= msg %></p>
+      <% }) %>
+    </div>
+  <% } %>
+
+  <h1>You're logged in</h1>
+  <p>Welcome, <%= accountData.account_firstname %> <%= accountData.account_lastname %>!</p>
+</main>
