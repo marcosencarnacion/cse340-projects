@@ -1,4 +1,3 @@
-
 <div class="container">
     <h1>Edit <%= inv_make %> <%= inv_model %></h1>
     
@@ -7,7 +6,7 @@
     <div class="notice"><%= message %></div>
     <% } %>
 
-    <form action="/inv/update" method="post">
+    <form action="/inv/update" method="post" id="updateForm">
         <input type="hidden" name="inv_id" value="<%= inv_id %>">
         
         <div class="form-row">
@@ -69,7 +68,9 @@
         </div>
 
         <div class="form-row">
-            <input type="submit" value="Update Vehicle">
+            <input type="submit" value="Update Vehicle" id="updateBtn" disabled>
         </div>
     </form>
 </div>
+
+<script src="/js/inv-update.js"></script>
