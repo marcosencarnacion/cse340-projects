@@ -800,65 +800,138 @@ input:valid {
   background-color: #f9f9f9;
 }
 
-/* Classification Select Dropdown Styles */
-#classificationList {
-  width: 100%;
-  max-width: 400px;
-  padding: 12px 16px;
-  font-size: 16px;
-  font-family: inherit;
-  border: 2px solid #ddd;
+/* Simple High Contrast Edit Form Styles */
+.container {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 2rem;
+  background: #ffffff;
+  border: 2px solid #000000;
   border-radius: 8px;
-  background-color: white;
-  background-image: url("data:image/svg+xml;charset=US-ASCII,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 4 5'><path fill='%23333' d='M2 0L0 2h4zm0 5L0 3h4z'/></svg>");
-  background-repeat: no-repeat;
-  background-position: right 16px center;
-  background-size: 12px;
-  appearance: none;
-  cursor: pointer;
-  transition: all 0.3s ease;
-  margin: 1rem 0;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
-#classificationList:hover {
-  border-color: #999;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+h1 {
+  color: #000000;
+  text-align: center;
+  margin-bottom: 2rem;
+  font-size: 2rem;
+  font-weight: bold;
+  border-bottom: 3px solid #000000;
+  padding-bottom: 1rem;
 }
 
-#classificationList:focus {
-  outline: none;
-  border-color: #007bff;
-  box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.25);
+/* Form Styles */
+form {
+  padding: 1rem 0;
 }
 
-#classificationList option {
-  padding: 12px;
-  font-size: 16px;
-  background-color: white;
-}
-
-#classificationList option:first-child {
-  color: #6c757d;
-  font-style: italic;
-}
-
-#classificationList option:not(:first-child) {
-  color: #333;
-  border-bottom: 1px solid #f0f0f0;
-}
-
-/* Label styling for better semantics */
+/* Form Rows */
 .form-row {
   margin-bottom: 1.5rem;
+  display: flex;
+  flex-direction: column;
 }
 
 .form-row label {
-  display: block;
+  font-weight: bold;
+  color: #000000;
   margin-bottom: 0.5rem;
-  font-weight: 600;
-  color: #333;
-  font-size: 14px;
-  text-transform: uppercase;
-  letter-spacing: 0.5px;
+  font-size: 16px;
+}
+
+/* Input Fields */
+.form-row input[type="text"],
+.form-row input[type="number"],
+.form-row textarea,
+#classificationList {
+  padding: 12px;
+  border: 2px solid #000000;
+  border-radius: 4px;
+  font-size: 16px;
+  background-color: #ffffff;
+  width: 100%;
+  box-sizing: border-box;
+  color: #000000;
+}
+
+.form-row input[type="text"]:focus,
+.form-row input[type="number"]:focus,
+.form-row textarea:focus,
+#classificationList:focus {
+  outline: 3px solid #0066cc;
+  outline-offset: 2px;
+  background-color: #ffffff;
+}
+
+/* Textarea */
+.form-row textarea {
+  min-height: 120px;
+  resize: vertical;
+  font-family: inherit;
+}
+
+/* Select Dropdown */
+#classificationList {
+  border: 2px solid #000000;
+  background-color: #ffffff;
+  color: #000000;
+}
+
+/* Submit Button */
+.form-row input[type="submit"] {
+  background: #000000;
+  color: #ffffff;
+  padding: 14px 28px;
+  border: 2px solid #000000;
+  border-radius: 4px;
+  font-size: 16px;
+  font-weight: bold;
+  cursor: pointer;
+  margin-top: 1rem;
+  width: auto;
+}
+
+.form-row input[type="submit"]:hover {
+  background: #333333;
+  border-color: #333333;
+}
+
+.form-row input[type="submit"]:focus {
+  outline: 3px solid #0066cc;
+  outline-offset: 2px;
+}
+
+/* Notice Messages */
+.notice {
+  background: #004400;
+  color: #ffffff;
+  padding: 1rem;
+  border-radius: 4px;
+  margin-bottom: 2rem;
+  text-align: center;
+  font-weight: bold;
+  border: 2px solid #000000;
+}
+
+/* Required field indicator */
+.form-row label:after {
+  content: " *";
+  color: #cc0000;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .container {
+    padding: 1rem;
+    margin: 1rem;
+  }
+  
+  .form-row input[type="submit"] {
+    width: 100%;
+  }
+}
+
+/* Hidden field */
+input[type="hidden"] {
+  display: none;
 }
