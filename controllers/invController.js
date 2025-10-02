@@ -245,4 +245,64 @@ invController.updateInventory = async function (req, res, next) {
   }
 }
 
-module.exports = invController
+/* ***************************
+ *  Build delete confirmation view
+ * ************************** */
+invController.buildDeleteConfirm = async function (req, res, next) {
+    try {
+        const inv_id = req.params.inv_id;
+        let nav = await utilities.getNav();
+        
+        // Get inventory item data - using getVehicleByInventoryId since that's what you have
+        const itemData = await invModel.getVehicleByInventoryId(inv_id);
+        
+        // Build item name for display
+        const itemName = `${itemData.inv_make} ${itemData.inv_model}`;
+        
+        res.render("./inventory/delete-confirm", {
+            title: "Delete " + itemName,
+            nav,
+            errors: null,
+            inv_id: itemData.inv_id,
+            inv_make: itemData.inv_make,
+            inv_model: itemData.inv_model,
+            inv_year: itemData.inv_year,
+            inv_price: itemData.inv_price,
+            classification_id: itemData.classification_id
+        });
+    } catch (error) {
+        next(error);
+    }
+}
+
+/* ***************************
+ *  Delete inventory item
+ * ************************** */
+invController.deleteInventoryItem = async function (req, res, next) {
+    try {
+        console.log("Delete process started");
+        const inv_id = parseInt(req.body.inv_id);
+        console.log("Attempting to delete inventory ID:", inv_id);
+        
+        // Call model to delete item
+        const deleteResult = await invModel.deleteInventoryItem(inv_id);
+        console.log("Delete result from model:", deleteResult);
+        
+        if (deleteResult) {
+            console.log("Delete successful - setting flash message");
+            req.flash("notice", `The ${req.body.inv_make} ${req.body.inv_model} was successfully deleted.`);
+            console.log("Flash message set, redirecting to /inv/");
+            res.redirect("/inv/");
+        } else {
+            console.log("Delete failed - result was falsy");
+            req.flash("notice", "Sorry, the deletion failed.");
+            res.redirect(`/inv/delete/${inv_id}`);
+        }
+    } catch (error) {
+        console.log("Delete error caught:", error);
+        req.flash("notice", "Sorry, the deletion failed.");
+        res.redirect(`/inv/delete/${req.body.inv_id}`);
+    }
+}
+
+module.exports = invController;

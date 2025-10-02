@@ -1,0 +1,43 @@
+<div class="container">
+    <div class="delete-container">
+        <h1 class="text-center mb-4">Delete Inventory Item</h1>
+        
+        <div class="delete-warning">
+            <i class="fas fa-exclamation-triangle"></i>
+            Confirm Deletion - This action cannot be undone!
+        </div>
+
+        <div class="vehicle-details">
+            <h3>Vehicle Information</h3>
+            <div class="detail-grid">
+                <div class="detail-item">
+                    <span class="detail-label">Make:</span>
+                    <div class="detail-value"><%= inv_make %></div>
+                </div>
+                <div class="detail-item">
+                    <span class="detail-label">Model:</span>
+                    <div class="detail-value"><%= inv_model %></div>
+                </div>
+                <div class="detail-item">
+                    <span class="detail-label">Year:</span>
+                    <div class="detail-value"><%= inv_year %></div>
+                </div>
+                <div class="detail-item">
+                    <span class="detail-label">Price:</span>
+                    <div class="detail-value">$<%= parseFloat(inv_price).toLocaleString() %></div>
+                </div>
+            </div>
+        </div>
+
+        <form action="/inv/delete/" method="post">
+            <input type="hidden" name="inv_id" value="<%= inv_id %>">
+            
+            <div class="form-actions">
+                <a href="/inv/" class="btn btn-cancel">Cancel</a>
+                <button type="submit" class="btn btn-delete">
+                    <i class="fas fa-trash-alt"></i> Delete Vehicle Permanently
+                </button>
+            </div>
+        </form>
+    </div>
+</div>
