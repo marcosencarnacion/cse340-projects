@@ -1,0 +1,85 @@
+
+
+<div class="form-container">
+<!-- Completely removed messages section -->
+
+<% if (errors && errors.length > 0) { %>
+    <div class="errors">
+    <% errors.forEach(error => { %>
+        <p class="error-message"><%= error %></p>
+    <% }) %>
+    </div>
+<% } %>
+
+<h1><%= title %></h1>
+
+<!-- Account Update Form -->
+<form method="post" action="/account/update" class="form">
+    <h2>Account Update</h2>
+    
+    <input type="hidden" name="account_id" value="<%= accountData.account_id %>">
+    
+    <div class="form-group">
+    <label for="account_firstname">First Name:</label>
+    <input 
+        type="text" 
+        id="account_firstname" 
+        name="account_firstname" 
+        value="<%= accountData.account_firstname %>"
+        required
+        class="form-control"
+    >
+    </div>
+
+    <div class="form-group">
+    <label for="account_lastname">Last Name:</label>
+    <input 
+        type="text" 
+        id="account_lastname" 
+        name="account_lastname" 
+        value="<%= accountData.account_lastname %>" 
+        required
+        class="form-control"
+    >
+    </div>
+
+    <div class="form-group">
+    <label for="account_email">Email:</label>
+    <input 
+        type="email" 
+        id="account_email" 
+        name="account_email" 
+        value="<%= accountData.account_email %>"
+        required
+        class="form-control"
+    >
+    </div>
+
+    <input type="submit" value="Update Account" class="btn btn-primary">
+</form>
+
+<!-- Change Password Form -->
+<form method="post" action="/account/update-password" class="form">
+    <h2>Change Password</h2>
+    
+    <input type="hidden" name="account_id" value="<%= accountData.account_id %>">
+    
+    <div class="form-group">
+    <label for="account_password">New Password:</label>
+    <input 
+        type="password" 
+        id="account_password" 
+        name="account_password" 
+        required
+        class="form-control"
+        pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}"
+        title="Must contain at least one number, one uppercase and lowercase letter, and at least 8 or more characters"
+    >
+    <small class="form-text">
+        Password must be at least 8 characters with at least one number, one uppercase and one lowercase letter.
+    </small>
+    </div>
+
+    <input type="submit" value="Change Password" class="btn btn-primary">
+</form>
+</div>

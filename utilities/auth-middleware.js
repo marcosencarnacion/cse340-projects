@@ -5,14 +5,14 @@ const utilities = require("./")
 
 const authMiddleware = {}
 
-//Middleware to check if the user is logged in
+// Middleware to check if user is logged in
 authMiddleware.isLoggedIn = (req, res, next) => {
-    if (req.session.accountData) {
-        next()
-    } else {
-        req.flash("notice", "Please log in to access this page.")
-        return res.redirect('/account/login')
-    }
+  if (req.session.accountData) {
+    next()
+  } else {
+    req.flash("notice", "Please log in to access this page.")
+    return res.redirect('/account/login')
+  }
 }
 
 // Middleware to check if user is Employee or Admin
@@ -28,4 +28,3 @@ authMiddleware.isEmployeeOrAdmin = (req, res, next) => {
 }
 
 module.exports = authMiddleware
-
