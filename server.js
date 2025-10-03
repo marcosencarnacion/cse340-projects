@@ -38,6 +38,13 @@ const inventoryRoute = require("./routes/inventoryRoute")
   name: 'sessionId',
 }))
 
+// Make login state & account data available to all views
+app.use((req, res, next) => {
+  res.locals.loggedIn = !!req.session.accountData
+  res.locals.accountData = req.session.accountData || null
+  next()
+})
+
 // Express Messages Middleware
 app.use(require('connect-flash')())
 app.use(function(req, res, next){

@@ -29,4 +29,12 @@ router.post(
   utilities.handleErrors(accountController.accountLogin)
 )
 
+// Logout route
+router.get("/logout", (req, res) => {
+  req.session.destroy(() => {
+    res.clearCookie("sessionId") // clear cookie
+    res.redirect("/")            // back to home
+  })
+})
+
 module.exports = router
