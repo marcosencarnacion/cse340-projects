@@ -38,6 +38,48 @@ async function getVehicleByInventoryId(inv_id) {
 }
 
 /* ***************************
+ *  Find existing vehicle by key attributes
+ *  Matching criteria: inv_make, inv_model, inv_year, classification_id
+ *  (case-insensitive for make/model)
+ * ************************** */
+async function findVehicleByAttributes(inv_make, inv_model, inv_year, classification_id) {
+  try {
+    const sql = `
+      SELECT * FROM public.inventory
+      WHERE LOWER(inv_make) = LOWER($1)
+        AND LOWER(inv_model) = LOWER($2)
+        AND inv_year = $3
+        AND classification_id = $4
+      LIMIT 1;
+    `
+    const data = await pool.query(sql, [inv_make, inv_model, inv_year, classification_id])
+    return data.rows[0]
+  } catch (error) {
+    console.error("findVehicleByAttributes error: " + error)
+  }
+}
+
+/* ***************************
+ *  Increment inventory amount (add stock)
+ * ************************** */
+async function incrementInventory(inv_id, amount) {
+  try {
+    // amount should be positive; caller should validate
+    const sql = `
+      UPDATE public.inventory
+      SET inv_amount = inv_amount + $1
+      WHERE inv_id = $2
+      RETURNING *;
+    `
+    const data = await pool.query(sql, [amount, inv_id])
+    return data.rows[0]
+  } catch (error) {
+    console.error("incrementInventory error: " + error)
+    throw error
+  }
+}
+
+/* ***************************
  *  Insert new classification
  * ************************** */
 async function addClassification(classification_name) {
@@ -57,8 +99,8 @@ async function addInventory(vehicleData) {
   try {
     const sql = `
       INSERT INTO public.inventory 
-      (inv_make, inv_model, inv_year, inv_description, inv_image, inv_thumbnail, inv_price, inv_miles, inv_color, classification_id)
-      VALUES ($1,$2,$3,$4,$5,$6,$7,$8,$9,$10)
+      (inv_make, inv_model, inv_year, inv_description, inv_image, inv_thumbnail, inv_price, inv_miles, inv_color, classification_id, inv_amount)
+      VALUES ($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11)
       RETURNING *`
     const data = await pool.query(sql, [
       vehicleData.inv_make,
@@ -70,7 +112,8 @@ async function addInventory(vehicleData) {
       vehicleData.inv_price,
       vehicleData.inv_miles,
       vehicleData.inv_color,
-      vehicleData.classification_id
+      vehicleData.classification_id,
+      vehicleData.inv_amount || 0
     ])
     return data.rows[0]
   } catch (error) {
@@ -92,11 +135,25 @@ async function updateInventory(
   inv_year,
   inv_miles,
   inv_color,
+  inv_amount,
   classification_id
 ) {
   try {
     const sql =
-      "UPDATE public.inventory SET inv_make = $1, inv_model = $2, inv_description = $3, inv_image = $4, inv_thumbnail = $5, inv_price = $6, inv_year = $7, inv_miles = $8, inv_color = $9, classification_id = $10 WHERE inv_id = $11 RETURNING *"
+      `UPDATE public.inventory 
+       SET inv_make = $1,
+           inv_model = $2,
+           inv_description = $3,
+           inv_image = $4,
+           inv_thumbnail = $5,
+           inv_price = $6,
+           inv_year = $7,
+           inv_miles = $8,
+           inv_color = $9,
+           inv_amount = $10,
+           classification_id = $11
+       WHERE inv_id = $12
+       RETURNING *`
     const data = await pool.query(sql, [
       inv_make,
       inv_model,
@@ -107,6 +164,7 @@ async function updateInventory(
       inv_year,
       inv_miles,
       inv_color,
+      inv_amount,
       classification_id,
       inv_id
     ])
@@ -132,6 +190,26 @@ async function deleteInventoryItem(inv_id) {
     }
 }
 
+/* ***************************
+ *  Decrease Inventory Amount
+ * ************************** */
+async function decreaseInventory(inv_id) {
+  try {
+    const sql = `
+    UPDATE inventory
+    SET inv_amount = inv_amount - 1
+    WHERE inv_id = $1 
+    and inv_amount > 0
+    RETURNING *;
+    `;
+    const result = await pool.query(sql, [inv_id]);
+    return result.rows[0];
+  } catch (error) {
+    console.error("Error decreasing inventory:", error);
+    throw error;
+  }
+}
+
 module.exports = {
   getClassifications,
   getInventoryByClassificationId,
@@ -139,5 +217,8 @@ module.exports = {
   addClassification,
   addInventory,
   updateInventory,
-  deleteInventoryItem
+  deleteInventoryItem,
+  decreaseInventory,
+  findVehicleByAttributes,
+  incrementInventory
 }

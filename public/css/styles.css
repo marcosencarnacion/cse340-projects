@@ -1484,3 +1484,193 @@ small {
   background-color: #0047AB;
   color: #ffffff;
 }
+
+/* === Purchase Button Styles === */
+.purchase-btn {
+  display: inline-block;
+  background-color: #06213d; /* Primary blue */
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  padding: 12px 24px;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+  margin-top: 1.5rem;
+}
+
+.purchase-btn:hover {
+  background-color: #0056b3;
+  transform: translateY(-2px);
+}
+
+.purchase-btn:active {
+  background-color: #004080;
+  transform: translateY(0);
+}
+
+/* Optional container if you want to center it */
+.purchase-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 2rem;
+}
+
+
+.form-group {
+  margin-bottom: 1rem;
+}
+.form-group label {
+  display: block;
+  font-weight: bold;
+  margin-bottom: 0.3rem;
+}
+.form-group input {
+  width: 100%;
+  padding: 0.4rem;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+.purchase-success {
+  text-align: center;
+  margin: 2rem auto;
+  max-width: 700px;
+}
+
+.success-card {
+  background: #f9fff9;
+  border: 2px solid #4CAF50;
+  border-radius: 16px;
+  padding: 2rem;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+}
+
+.success-card h2 {
+  color: #2e7d32;
+  margin-bottom: 0.5rem;
+}
+
+.vehicle-summary {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1.5rem;
+  margin: 2rem 0;
+}
+
+.vehicle-summary img {
+  width: 180px;
+  height: auto;
+  border-radius: 8px;
+  border: 1px solid #ddd;
+}
+
+.vehicle-info {
+  text-align: left;
+}
+
+.vehicle-info h3 {
+  margin-bottom: 0.3rem;
+}
+
+.actions {
+  margin-top: 1.5rem;
+}
+
+.actions .btn,
+.actions .btn-secondary {
+  text-decoration: none;
+  padding: 0.6rem 1.2rem;
+  border-radius: 6px;
+  font-weight: bold;
+  transition: background 0.3s ease;
+}
+
+.actions .btn {
+  background-color: #4CAF50;
+  color: white;
+}
+
+.actions .btn:hover {
+  background-color: #45a049;
+}
+
+.actions .btn-secondary {
+  background-color: #e0e0e0;
+  color: #333;
+  margin-left: 0.5rem;
+}
+
+.actions .btn-secondary:hover {
+  background-color: #d5d5d5;
+}
+
+/* Purchase Failed View */
+
+.purchase-fail {
+  text-align: center;
+  margin: 2rem auto;
+  max-width: 700px;
+}
+
+.fail-card {
+  background: #fff8f8;
+  border: 2px solid #f44336;
+  border-radius: 16px;
+  padding: 2rem;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+}
+
+.fail-card h2 {
+  color: #b71c1c;
+  margin-bottom: 0.5rem;
+}
+
+.fail-icon {
+  font-size: 3rem;
+  margin: 1rem 0;
+  animation: shake 0.4s ease-in-out;
+}
+
+@keyframes shake {
+  0% { transform: translateX(0); }
+  25% { transform: translateX(-5px); }
+  50% { transform: translateX(5px); }
+  75% { transform: translateX(-5px); }
+  100% { transform: translateX(0); }
+}
+
+.actions {
+  margin-top: 1.5rem;
+}
+
+.actions .btn,
+.actions .btn-secondary {
+  text-decoration: none;
+  padding: 0.6rem 1.2rem;
+  border-radius: 6px;
+  font-weight: bold;
+  transition: background 0.3s ease;
+}
+
+.actions .btn {
+  background-color: #0c0658;
+  color: white;
+}
+
+.actions .btn:hover {
+  background-color: #e53935;
+}
+
+.actions .btn-secondary {
+  background-color: #e0e0e0;
+  color: #333;
+  margin-left: 0.5rem;
+}
+
+.actions .btn-secondary:hover {
+  background-color: #d5d5d5;
+}

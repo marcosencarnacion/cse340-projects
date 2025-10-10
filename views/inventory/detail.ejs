@@ -5,3 +5,12 @@
 
 <%# The grid variable is the HTML string from our utility function %>
 <%- grid %>
+
+<p><strong>In Stock:</strong> <%= vehicle.inv_amount %></p>
+
+<div class="purchase-container">
+  <form action="/inv/purchase" method="POST">
+    <input type="hidden" name="inv_id" value="<%= vehicle.inv_id %>">
+    <button type="submit" class="purchase-btn">Purchase</button>
+  </form>
+</div>

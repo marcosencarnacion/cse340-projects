@@ -51,7 +51,7 @@
 
         <div class="form-row">
             <label for="inv_year">Year:</label>
-            <input type="number" name="inv_year" id="inv_year" min="1900" max="2030" required 
+            <input type="number" name="inv_year" id="inv_year" min="1900" max="2099" required 
                     value="<%= inv_year %>">
         </div>
 
@@ -67,10 +67,17 @@
                     value="<%= inv_color %>">
         </div>
 
+        <div class="form-group">
+            <label for="inv_amount">Stock Quantity</label>
+                <input type="number" id="inv_amount" name="inv_amount" min="0" value="<%= inv_amount %>" required>
+        </div>
+
         <div class="form-row">
             <input type="submit" value="Update Vehicle" id="updateBtn" disabled>
         </div>
     </form>
 </div>
+
+
 
 <script src="/js/inv-update.js"></script>

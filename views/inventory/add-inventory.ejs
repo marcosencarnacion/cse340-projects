@@ -83,5 +83,20 @@
       value="<%= vehicleData?.inv_color || '' %>" required>
   </div>
 
+  <div class="form-group">
+    <label for="inv_amount">Stock (units)</label>
+    <input
+      type="number"
+      class="form-control"
+      name="inv_amount"
+      id="inv_amount"
+      min="0"
+      value="<%= vehicleData.inv_amount !== undefined ? vehicleData.inv_amount : 0 %>"
+    >
+    <small class="form-text text-muted">
+      If a vehicle with the same Make, Model, Year and Classification already exists, this quantity will be <strong>added to its stock</strong> instead of creating a duplicate vehicle.
+    </small>
+  </div>
+
   <button type="submit" class="btn">Add Vehicle</button>
 </form>

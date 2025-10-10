@@ -94,4 +94,10 @@ router.post(
   utilities.handleErrors(invController.deleteInventoryItem)
 )
 
+// Route to handle vehicle purchase
+router.post(
+  "/purchase",
+  utilities.handleErrors(invController.purchaseVehicle)
+)
+
 module.exports = router

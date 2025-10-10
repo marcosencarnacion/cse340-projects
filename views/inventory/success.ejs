@@ -1,0 +1,23 @@
+<div class="purchase-success container">
+  <h1>🎉 Purchase Successful!</h1>
+
+  <section class="success-card">
+    <h2>Thank you for your purchase!</h2>
+    <p>Your order has been successfully processed.</p>
+
+    <div class="vehicle-summary">
+      <img src="<%= vehicle.inv_thumbnail %>" alt="<%= vehicle.inv_make + ' ' + vehicle.inv_model %>">
+      <div class="vehicle-info">
+        <h3><%= vehicle.inv_year %> <%= vehicle.inv_make %> <%= vehicle.inv_model %></h3>
+        <p><strong>Price:</strong> $<%= vehicle.inv_price.toLocaleString() %></p>
+        <p><strong>Color:</strong> <%= vehicle.inv_color %></p>
+        <p><strong>Remaining in stock:</strong> <%= vehicle.inv_amount %></p>
+      </div>
+    </div>
+
+    <div class="actions">
+      <a href="/inv/type/<%= vehicle.classification_id %>" class="btn">Continue Shopping</a>
+      <a href="/" class="btn-secondary">Return Home</a>
+    </div>
+  </section>
+</div>

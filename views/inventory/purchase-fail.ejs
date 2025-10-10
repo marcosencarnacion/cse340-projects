@@ -1,0 +1,17 @@
+<div class="purchase-fail container">
+  <h1>❌ Purchase Failed</h1>
+
+  <section class="fail-card">
+    <h2>Sorry, we couldn’t process your purchase.</h2>
+    <p><%= message || "This vehicle may no longer be available or is out of stock." %></p>
+
+    <div class="fail-icon">🚗💨</div>
+
+    <div class="actions">
+      <% if (inv_id) { %>
+        <a href="/inv/detail/<%= inv_id %>" class="btn">Back to Vehicle</a>
+      <% } %>
+      <a href="/" class="btn-secondary">Return Home</a>
+    </div>
+  </section>
+</div>

@@ -31,6 +31,7 @@ invController.buildByInventoryId = async function (req, res, next) {
     title: vehicleTitle,
     nav,
     grid,
+    vehicle: data
   })
 }
 
@@ -106,7 +107,7 @@ invController.buildAddInventory = async function (req, res, next) {
     nav,
     classifications: classifications.rows,
     errors: null,
-    vehicleData: {}, // default empty
+    vehicleData: { inv_amount: 0 }, // <-- default stock value
   })
 }
 
@@ -115,15 +116,43 @@ invController.buildAddInventory = async function (req, res, next) {
 * *************************************** */
 invController.addInventory = async function (req, res, next) {
   const vehicleData = req.body
+
+  // ensure inv_amount is a number (default to 0)
+  vehicleData.inv_amount = parseInt(vehicleData.inv_amount, 10)
+  if (Number.isNaN(vehicleData.inv_amount)) vehicleData.inv_amount = 0
+
   let nav = await utilities.getNav()
   try {
+    // 1) Try to find an existing vehicle that matches key attributes
+    const existing = await invModel.findVehicleByAttributes(
+      vehicleData.inv_make,
+      vehicleData.inv_model,
+      vehicleData.inv_year,
+      vehicleData.classification_id
+    )
+
+    // 2) If it exists and we're adding stock, increment its inv_amount
+    if (existing && vehicleData.inv_amount > 0) {
+      const updated = await invModel.incrementInventory(existing.inv_id, vehicleData.inv_amount)
+
+      req.flash(
+        "notice",
+        `Updated stock: added ${vehicleData.inv_amount} unit(s) to ${updated.inv_year} ${updated.inv_make} ${updated.inv_model}. New stock: ${updated.inv_amount}.`
+      )
+      return res.redirect("/inv/")
+    }
+
+    // 3) No matching vehicle found (or adding 0) → create a new inventory row
     const data = await invModel.addInventory(vehicleData)
     if (data) {
-      req.flash("notice", `The ${vehicleData.inv_year} ${vehicleData.inv_make} ${vehicleData.inv_model} was successfully added.`)
-      res.redirect("/inv/")
+      req.flash(
+        "notice",
+        `The ${vehicleData.inv_year} ${vehicleData.inv_make} ${vehicleData.inv_model} was successfully added.`
+      )
+      return res.redirect("/inv/")
     } else {
       req.flash("notice", "Sorry, the insert failed.")
-      res.status(500).render("inventory/add-inventory", {
+      return res.status(500).render("inventory/add-inventory", {
         title: "Add Vehicle",
         nav,
         classifications: (await invModel.getClassifications()).rows,
@@ -134,7 +163,7 @@ invController.addInventory = async function (req, res, next) {
   } catch (error) {
     console.error("addInventory controller error:", error)
     req.flash("notice", "There was an error processing the request.")
-    res.status(500).render("inventory/add-inventory", {
+    return res.status(500).render("inventory/add-inventory", {
       title: "Add Vehicle",
       nav,
       classifications: (await invModel.getClassifications()).rows,
@@ -181,6 +210,7 @@ invController.buildEditInventoryView = async function (req, res, next) {
     inv_price: itemData.inv_price,
     inv_miles: itemData.inv_miles,
     inv_color: itemData.inv_color,
+    inv_amount: itemData.inv_amount,
     classification_id: itemData.classification_id
   })
 }
@@ -201,8 +231,11 @@ invController.updateInventory = async function (req, res, next) {
     inv_year,
     inv_miles,
     inv_color,
+    inv_amount,       // ✅ add this line
     classification_id,
   } = req.body
+
+  const invAmount = parseInt(inv_amount, 10)
   const updateResult = await invModel.updateInventory(
     inv_id,  
     inv_make,
@@ -214,6 +247,7 @@ invController.updateInventory = async function (req, res, next) {
     inv_year,
     inv_miles,
     inv_color,
+    Number.isNaN(invAmount) ? 0 : invAmount, // ✅ include numeric stock
     classification_id
   )
 
@@ -240,6 +274,7 @@ invController.updateInventory = async function (req, res, next) {
       inv_price,
       inv_miles,
       inv_color,
+      inv_amount,       // ✅ make sticky
       classification_id
     })
   }
@@ -304,5 +339,58 @@ invController.deleteInventoryItem = async function (req, res, next) {
         res.redirect(`/inv/delete/${req.body.inv_id}`);
     }
 }
+
+/* ***************************
+ *  Process Vehicle Purchase
+ * ***************************
+ *  Handles POST requests from the "Purchase" form.
+ */
+
+async function purchaseVehicle(req, res, next) {
+  const invId = parseInt(req.body.inv_id, 10);
+
+  try {
+    let nav = await utilities.getNav();
+
+    if (Number.isNaN(invId)) {
+      return res.status(400).render("inventory/purchase-fail", {
+        title: "Purchase Failed",
+        nav,
+        message: "Invalid vehicle ID."
+      });
+    }
+
+    const updatedVehicle = await invModel.decreaseInventory(invId);
+
+    if (!updatedVehicle) {
+      // out of stock or invalid id
+      return res.status(400).render("inventory/purchase-fail", {
+        title: "Purchase Failed",
+        nav,
+        message: "Sorry, this vehicle is no longer available.",
+        inv_id: invId
+      });
+    }
+
+    // success — render success view with updated vehicle (new stock)
+    return res.render("inventory/success", {
+      title: "Purchase Successful",
+      nav,
+      vehicle: updatedVehicle
+    });
+
+  } catch (error) {
+    console.error("Error processing purchase:", error);
+    const nav = await utilities.getNav();
+    return res.status(500).render("inventory/purchase-fail", {
+      title: "Purchase Failed",
+      nav,
+      message: "Server error processing purchase. Please try again later."
+    });
+  }
+}
+
+invController.purchaseVehicle = purchaseVehicle;
+
 
 module.exports = invController;
